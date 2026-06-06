@@ -25,15 +25,16 @@ public class Products extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	Connection connection;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		Connection connection=null;
 
 		Object connObj = getServletContext().getAttribute("dbConnection");
 		if (connObj != null) {
 			connection = (Connection) connObj;
-		}else {
+		} else {
 			response.sendRedirect("ErrorPage.html");
 		}
 

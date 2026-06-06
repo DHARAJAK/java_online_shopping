@@ -18,7 +18,6 @@ public class ProductsDaoImpl implements ProductsDao {
 	}
 
 	public ProductsDaoImpl() {
-		super();
 	}
 
 	@Override
@@ -26,6 +25,7 @@ public class ProductsDaoImpl implements ProductsDao {
 		ArrayList<RegisteredProducts> list = new ArrayList<>();
 		// TODO Auto-generated method stub
 		try {
+
 			PreparedStatement psAllCategories = connection
 					.prepareStatement("select * from products where categoryId = ?");
 

@@ -48,4 +48,51 @@ public class CategoryDaoImpl implements CategoryDao {
 		return list.iterator();
 	}
 
+	private boolean categoryPresentOrNot(String category) {
+
+		try {
+			PreparedStatement psAddCategory = connection
+					.prepareStatement("select distinct categoryName category from category");
+
+			ResultSet result = psAddCategory.executeQuery();
+
+			while (result.next()) {
+				if (category.equals(result.getString(1))) {
+					;
+					return false; // category already present;
+				}
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+
+	}
+
+	@Override
+	public boolean addCategory(RegisteredCategory regcat) throws CategoryException {
+
+		if (!categoryPresentOrNot(regcat.getCategoryName())) {
+			return false;
+		}
+
+		try {
+			PreparedStatement psAddCategory = connection.prepareStatement(
+					"INSERT INTO category (categoryDescription, categoryImageUrl, categoryName) VALUES (?, ?, ?)");
+			psAddCategory.setString(1, regcat.getCategoryDesc());
+			psAddCategory.setString(2, regcat.getCategoryImgUrl());
+			psAddCategory.setString(3, regcat.getCategoryName());
+
+			psAddCategory.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return true;
+	}
+
 }
