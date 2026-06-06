@@ -5,6 +5,6 @@ import java.util.Iterator;
 
 public interface CategoryDao {
 
-	public Iterator<RegisteredCategory> getAllCategories(Connection connection) throws CategoryException;
+	public Iterator<RegisteredCategory> getAllCategories() throws CategoryException;
 
 }

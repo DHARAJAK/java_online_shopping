@@ -32,39 +32,21 @@ public class Category extends HttpServlet {
 	 *      response)
 	 */
 
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
-		super.init(config);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Connection connection = null;
 		Object connObj = getServletContext().getAttribute("dbConnection");
 
 		if (connObj != null) {
-			this.connection = (Connection) connObj;
+			connection = (Connection) connObj;
+		}else {
+			response.sendRedirect("ErrorPage.html");
 		}
-
-	}
-
-	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
+		
+		
+		CategoryDaoImpl catD = new CategoryDaoImpl(connection);
 		try {
-			if (connection != null)
-				connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		super.destroy();
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-		CategoryDaoImpl catD = new CategoryDaoImpl();
-		try {
-			Iterator<RegisteredCategory> regCat = catD.getAllCategories(connection);
+			Iterator<RegisteredCategory> regCat = catD.getAllCategories();
 
 			PrintWriter out = response.getWriter();
 			out.println("<html>");

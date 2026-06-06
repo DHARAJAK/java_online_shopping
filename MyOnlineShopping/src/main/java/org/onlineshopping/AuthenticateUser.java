@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import org.users.UsersDaoImpl;
 import org.users.UsersException;
 
-
 public class AuthenticateUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -57,6 +56,11 @@ public class AuthenticateUser extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		if (connection == null) {
+			response.sendRedirect("ErrorPage.html");
+			return;
+		}
 
 		UsersDaoImpl user = new UsersDaoImpl(connection);
 //		PrintWriter out = response.getWriter();

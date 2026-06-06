@@ -11,13 +11,15 @@ import java.util.Iterator;
 import org.dbConfig.DBConfig;
 
 public class CategoryDaoImpl implements CategoryDao {
+	Connection connection = null;
 
-	public CategoryDaoImpl() {
+	public CategoryDaoImpl(Connection connection) {
+		this.connection = connection;
 
 	}
 
 	@Override
-	public Iterator<RegisteredCategory> getAllCategories(Connection connection) throws CategoryException {
+	public Iterator<RegisteredCategory> getAllCategories() throws CategoryException {
 
 		ArrayList<RegisteredCategory> list = new ArrayList<>();
 

@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.util.Iterator;
 
 import org.category.RegisteredCategory;
@@ -24,14 +25,23 @@ public class Products extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	Connection connection;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		Object connObj = getServletContext().getAttribute("dbConnection");
+		if (connObj != null) {
+			connection = (Connection) connObj;
+		}else {
+			response.sendRedirect("ErrorPage.html");
+		}
 
 		Iterator<RegisteredProducts> prod;
 
 		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 
-		ProductsDaoImpl prodimpl = new ProductsDaoImpl();
+		ProductsDaoImpl prodimpl = new ProductsDaoImpl(connection);
 
 		prod = prodimpl.getAllProducts(categoryId);
 
