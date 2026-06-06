@@ -1,6 +1,6 @@
 package org.onlineshopping;
 
-import jakarta.servlet.ServletConfig;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,10 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Iterator;
-
 import org.category.CategoryDaoImpl;
 import org.category.CategoryException;
 import org.category.RegisteredCategory;
@@ -24,13 +21,6 @@ import org.category.RegisteredCategory;
 @WebServlet("/Category")
 public class Category extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	Connection connection;
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -72,7 +62,7 @@ public class Category extends HttpServlet {
 
 			out.println("</table>");
 			out.println("<form action='AddCategory.html'  method='get'>");
-			out.println("<button type='submit'> Submit </button>");
+			out.println("<button type='submit'> Add Category </button>");
 			out.println("</form></body></html>");
 //		out.println("Welcome to catgory page");
 

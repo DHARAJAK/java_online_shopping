@@ -5,6 +5,15 @@ public class RegisteredCategory {
 	Integer categoryId;
 	String categoryImgUrl;
 	String categoryName;
+	
+	
+
+	public RegisteredCategory(String categoryDesc,  String categoryImgUrl, String categoryName) {
+		super();
+		this.categoryDesc = categoryDesc;
+		this.categoryImgUrl = categoryImgUrl;
+		this.categoryName = categoryName;
+	}
 
 	public String getCategoryDesc() {
 		return categoryDesc;
@@ -20,6 +29,10 @@ public class RegisteredCategory {
 
 	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public RegisteredCategory() {
+		super();
 	}
 
 	public String getCategoryImgUrl() {

@@ -48,6 +48,7 @@ public class Products extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
 		out.println("<body>");
+		out.println("<link rel='stylesheet' type='text/css' href='Colors.css'>");
 		out.println("<table border='1'");
 		out.println("<tr>");
 		out.println("<th>Name </th>");
@@ -66,7 +67,10 @@ public class Products extends HttpServlet {
 			out.println("<td>" + products.getProductPrice() + "</td> </tr>");
 
 		}
-		out.println("</table></body></html>");
+		out.println("</table>");
+		out.println("<form action='AddProduct.html'  method='get'>");
+		out.println("<button type='submit'> Add Product </button>");
+		out.println("</form></body></html>");
 
 	}
 
