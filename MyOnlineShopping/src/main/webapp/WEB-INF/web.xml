@@ -25,22 +25,14 @@
 		</init-param>
 		<init-param>
 			<param-name>dbPassword</param-name>
-			<param-value>rajak463</param-value>
+			<param-value>cdac</param-value>
 		</init-param>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>AuthenticateUser</servlet-name>
 		<url-pattern>/AuthenticateUser</url-pattern>
 	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>Category</servlet-name>
-		<servlet-class>org.onlineshopping.Category</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Category</servlet-name>
-		<url-pattern>/Category</url-pattern>
-	</servlet-mapping>
+
+
 
 </web-app>
