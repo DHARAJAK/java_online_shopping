@@ -39,11 +39,10 @@ public class Category extends HttpServlet {
 
 		if (connObj != null) {
 			connection = (Connection) connObj;
-		}else {
+		} else {
 			response.sendRedirect("ErrorPage.html");
 		}
-		
-		
+
 		CategoryDaoImpl catD = new CategoryDaoImpl(connection);
 		try {
 			Iterator<RegisteredCategory> regCat = catD.getAllCategories();
@@ -51,6 +50,7 @@ public class Category extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.println("<html>");
 			out.println("<body>");
+			out.println("<link rel='stylesheet' type='text/css' href='Colors.css'>");
 			out.println("<table border='1'");
 			out.println("<tr>");
 			out.println("<th>Name </th>");
@@ -70,7 +70,10 @@ public class Category extends HttpServlet {
 				out.println("<td>" + category.getCategoryName() + "</td> </tr>");
 			}
 
-			out.println("</table></body></html>");
+			out.println("</table>");
+			out.println("<form action='AddCategory.html'  method='get'>");
+			out.println("<button type='submit'> Submit </button>");
+			out.println("</form></body></html>");
 //		out.println("Welcome to catgory page");
 
 		} catch (CategoryException e) {
