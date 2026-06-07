@@ -5,10 +5,10 @@ import java.util.Iterator;
 
 public interface ProductsDao {
 
-	public Iterator<RegisteredProducts> getAllProductsByCategory(String productId) throws ProductsException;
+	public Iterator<RegisteredProduct> getAllProductsByCategory(String productId) throws ProductsException;
 
-	public Iterator<RegisteredProducts> getAllProducts(Integer categoryId) throws ProductsException;
+	public Iterator<RegisteredProduct> getAllProducts(Integer categoryId) throws ProductsException;
 	
-	public Boolean addProduct(RegisteredProducts regProd);
+	public Boolean addProduct(RegisteredProduct regProd);
 
 }

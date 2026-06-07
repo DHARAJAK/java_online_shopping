@@ -1,8 +1,14 @@
 package org.products;
 
-public class RegisteredProducts {
+public class RegisteredProduct {
 
-	public RegisteredProducts(String productName, String productDescription, Float productPrice, String categoryId,
+	public RegisteredProduct() {
+		super();
+	}
+
+
+
+	public RegisteredProduct(String productName, String productDescription, Float productPrice, String categoryId,
 			String productImageUrl) {
 		this.categoryId = categoryId;
 		this.productDescription = productDescription;
@@ -11,9 +17,21 @@ public class RegisteredProducts {
 		this.productPrice = productPrice;
 	}
 
-	public RegisteredProducts() {
+	
+
+	public RegisteredProduct(String categoryId, String productId, Float productPrice) {
+		this.categoryId = categoryId;
+		this.productId = productId;
+		this.productPrice = productPrice;
+	}
+
+
+
+	public RegisteredProduct(String productId2) {
 		// TODO Auto-generated constructor stub
 	}
+
+
 
 	@Override
 	public String toString() {

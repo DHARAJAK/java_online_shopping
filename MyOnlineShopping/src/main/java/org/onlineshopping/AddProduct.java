@@ -13,7 +13,7 @@ import java.util.Iterator;
 import org.category.CategoryDaoImpl;
 import org.category.CategoryException;
 import org.products.ProductsDaoImpl;
-import org.products.RegisteredProducts;
+import org.products.RegisteredProduct;
 
 /**
  * Servlet implementation class AddProduct
@@ -98,7 +98,7 @@ public class AddProduct extends HttpServlet {
 		connection = (Connection) connObj;
 
 		ProductsDaoImpl newproduct = new ProductsDaoImpl(connection);
-		RegisteredProducts regProd = new RegisteredProducts(productName, productDescription, productPrice,
+		RegisteredProduct regProd = new RegisteredProduct(productName, productDescription, productPrice,
 				productCategory.toString(), productUrl);
 
 		newproduct.addProduct(regProd);

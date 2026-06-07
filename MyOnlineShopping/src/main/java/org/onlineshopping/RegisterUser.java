@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 
 import org.users.RegUser;
 import org.users.UsersDao;
@@ -34,27 +35,38 @@ public class RegisterUser extends HttpServlet {
 		String password = request.getParameter("password");
 
 		RegUser r = new RegUser(name, password, username, email);
+		Object connObj = getServletContext().getAttribute("dbConnection");
 
-		UsersDao user = new UsersDaoImpl();
+		if (connObj == null) {
+			response.sendRedirect("login.html");
+		}
+
+		Connection connection = (Connection) connObj;
+
+		UsersDao user = new UsersDaoImpl(connection);
 
 		try {
-			if (!user.RegisterUser(r)) {
+			if (user.UserExists(username)) {
 				response.sendRedirect("login.html");
-			} else {
-				out.println("<h2> Registering Failed.. Redirecting to Login");
-				try {
-					Thread.sleep(5000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				response.sendRedirect("register.html");
-			}
+				return;
 
+			}
 		} catch (UsersException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		try {
+			user.RegisterUser(r);
+			response.sendRedirect("login.html");
+			return;
+		} catch (UsersException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			response.sendRedirect("ErrorPage.html");
+			return;
+		}
+
 	}
 
 }

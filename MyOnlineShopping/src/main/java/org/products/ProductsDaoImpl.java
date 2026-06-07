@@ -21,8 +21,8 @@ public class ProductsDaoImpl implements ProductsDao {
 	}
 
 	@Override
-	public Iterator<RegisteredProducts> getAllProductsByCategory(String categoryId) throws ProductsException {
-		ArrayList<RegisteredProducts> list = new ArrayList<>();
+	public Iterator<RegisteredProduct> getAllProductsByCategory(String categoryId) throws ProductsException {
+		ArrayList<RegisteredProduct> list = new ArrayList<>();
 		// TODO Auto-generated method stub
 		try {
 
@@ -34,7 +34,7 @@ public class ProductsDaoImpl implements ProductsDao {
 			ResultSet result = psAllCategories.executeQuery();
 
 			while (result.next()) {
-				RegisteredProducts regProd = new RegisteredProducts();
+				RegisteredProduct regProd = new RegisteredProduct();
 
 				regProd.setProductDescription(result.getString("productDescription"));
 				regProd.setProductImageUrl(result.getString("productImageUrl"));
@@ -54,25 +54,24 @@ public class ProductsDaoImpl implements ProductsDao {
 		return list.iterator();
 	}
 
-	public Iterator<RegisteredProducts> getAllProducts(Integer categoryId) {
-
-		ArrayList<RegisteredProducts> list = new ArrayList<>();
-
+	public Iterator<RegisteredProduct> getAllProducts(Integer categoryId) {
+		ArrayList<RegisteredProduct> list = new ArrayList<>();
 		try {
+			// Look closely at your SELECT query:
 			PreparedStatement psAllProducts = connection.prepareStatement(
-					"Select productDescription, productImageUrl, productName, productPrice from products where categoryId = ?");
+					"Select productId, productDescription, productImageUrl, productName, productPrice from products where categoryId = ?");
 			psAllProducts.setInt(1, categoryId);
 
 			ResultSet result = psAllProducts.executeQuery();
 			while (result.next()) {
-				RegisteredProducts regprod = new RegisteredProducts();
-				regprod.setProductDescription(result.getString(1));
-				regprod.setProductImageUrl(result.getString(2));
-				regprod.setProductName(result.getString(3));
-				regprod.setProductPrice(result.getFloat(4));
+				RegisteredProduct regprod = new RegisteredProduct();
+				regprod.setProductId(result.getString(1));
+				regprod.setProductDescription(result.getString(2));
+				regprod.setProductImageUrl(result.getString(3));
+				regprod.setProductName(result.getString(4));
+				regprod.setProductPrice(result.getFloat(5));
 				list.add(regprod);
 			}
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,7 +80,7 @@ public class ProductsDaoImpl implements ProductsDao {
 		return list.iterator();
 	}
 
-	public Boolean addProduct(RegisteredProducts regProd) {
+	public Boolean addProduct(RegisteredProduct regProd) {
 		Integer catId = 0;
 		try {
 			PreparedStatement psAddProduct = connection.prepareStatement(
@@ -130,6 +129,33 @@ public class ProductsDaoImpl implements ProductsDao {
 		}
 
 		return var;
+	}
+
+	public RegisteredProduct getProductByProductId(String productId) {
+		try {
+			// FIXED: Explicitly select all 5 required columns in matching order
+			PreparedStatement psProdDetails = connection.prepareStatement(
+					"select categoryId, productName, productDescription, productImageUrl, productPrice from products where productId=?");
+
+			psProdDetails.setString(1, productId);
+			ResultSet result = psProdDetails.executeQuery();
+
+			if (result.next()) {
+				RegisteredProduct prod = new RegisteredProduct();
+				prod.setProductId(productId);
+				prod.setCategoryId(result.getString(1)); // matches categoryId
+				prod.setProductName(result.getString(2)); // matches productName
+				prod.setProductDescription(result.getString(3)); // matches productDescription
+				prod.setProductImageUrl(result.getString(4)); // matches productImageUrl
+				prod.setProductPrice(result.getFloat(5)); // matches productPrice
+				return prod;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 }

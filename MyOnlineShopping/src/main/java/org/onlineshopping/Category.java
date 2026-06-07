@@ -51,7 +51,15 @@ public class Category extends HttpServlet {
 			out.println("<html>");
 			out.println("<body>");
 			out.println("<link rel='stylesheet' type='text/css' href='Colors.css'>");
-			out.println("<h3> Welcome " + session.getAttribute("username"));
+			out.println("<h3> Welcome " + session.getAttribute("username") + "</h3></br>");
+			out.println("<div style='display: flex; justify-content: space-between; align-items: center;'>");
+			out.println("   <h3><span>Welcome to Online Shopping</span></h3>");
+			out.println("   <a href='Logout'>logout !!</a>");
+			out.println("</div>");
+
+			out.println("<div style=\"display: flex; justify-content: space-between;\">" + "  <div></div"
+					+ "  <div><a href='ListCart'>View Cart</a></div>" + "</div>");
+
 			out.println("<table border='1'");
 			out.println("<tr>");
 			out.println("<th>Name </th>");

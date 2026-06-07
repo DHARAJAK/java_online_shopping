@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout | Online Shopping</title>
+    <link rel="stylesheet" type="text/css" href="Colors.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .payment-container {
+            background-color: #ffffff;
+            max-width: 450px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-top: 0;
+            color: #333333;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555555;
+            font-size: 14px;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+        input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        .inline-fields {
+            display: flex;
+            gap: 15px;
+        }
+        .inline-fields .form-group {
+            flex: 1;
+        }
+        .btn-submit {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .btn-submit:hover {
+            background-color: #218838;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="payment-container">
+    <a href="ListCart" class="back-link">&larr; Return to Cart</a>
+    
+    <h2>Payment Details</h2>
+    
+    <form action="Payment" method="POST">
+        
+        <div class="form-group">
+            <label for="cardNo">Card Number</label>
+            <input type="number" id="cardNo" name="cardNo" value="123456789" placeholder="12345678" required>
+        </div>
+        
+        <div class="inline-fields">
+            <div class="form-group">
+                <label for="cardCVV">CVV</label>
+                <input type="password" id="cardCVV" name="cardCVV" value ="789"placeholder="123" maxlength="3" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="cardPassword">Card PIN / Password</label>
+                <input type="password" id="cardPassword" name="cardPassword" value="1234" placeholder="****" required>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Pay Now</button>
+    </form>
+</div>
+
+</body>
+</html>

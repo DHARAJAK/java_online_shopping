@@ -27,11 +27,18 @@
 			<param-name>dbPassword</param-name>
 			<param-value>rajak463</param-value>
 		</init-param>
+		<load-on-startup>1</load-on-startup>
+
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AuthenticateUser</servlet-name>
 		<url-pattern>/AuthenticateUser</url-pattern>
 	</servlet-mapping>
+
+	<context-param>
+		<param-name>cartClassName</param-name>
+		<param-value>org.cart.ProductCart</param-value>
+	</context-param>
 
 
 
