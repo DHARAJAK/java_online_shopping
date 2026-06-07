@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.dbConfig.DBConfig;
 
@@ -19,7 +20,7 @@ public class CategoryDaoImpl implements CategoryDao {
 	}
 
 	@Override
-	public Iterator<RegisteredCategory> getAllCategories() throws CategoryException {
+	public Iterator<RegisteredCategory> getAllCategoriesData() throws CategoryException {
 
 		ArrayList<RegisteredCategory> list = new ArrayList<>();
 
@@ -80,10 +81,10 @@ public class CategoryDaoImpl implements CategoryDao {
 
 		try {
 			PreparedStatement psAddCategory = connection.prepareStatement(
-					"INSERT INTO category (categoryDescription, categoryImageUrl, categoryName) VALUES (?, ?, ?)");
-			psAddCategory.setString(1, regcat.getCategoryDesc());
+					"INSERT INTO category (categoryName, categoryImageUrl, categoryDescription) VALUES (?, ?, ?)");
+			psAddCategory.setString(1, regcat.getCategoryName());
 			psAddCategory.setString(2, regcat.getCategoryImgUrl());
-			psAddCategory.setString(3, regcat.getCategoryName());
+			psAddCategory.setString(3, regcat.getCategoryDesc());
 
 			psAddCategory.executeUpdate();
 
@@ -93,6 +94,28 @@ public class CategoryDaoImpl implements CategoryDao {
 		}
 
 		return true;
+	}
+
+	@Override
+	public Iterator<String> getAllCategory() throws CategoryException {
+		List<String> list = new ArrayList<>();
+
+		try {
+			PreparedStatement psAllCategory = connection.prepareStatement("select distinct categoryName from category");
+
+			ResultSet result = psAllCategory.executeQuery();
+
+			while (result.next()) {
+				System.out.println(result.getString(1) + "\n");
+				list.add(result.getString(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list.iterator();
+
 	}
 
 }

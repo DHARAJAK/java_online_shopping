@@ -1,6 +1,20 @@
 package org.products;
 
 public class RegisteredProducts {
+
+	public RegisteredProducts(String productName, String productDescription, Float productPrice, String categoryId,
+			String productImageUrl) {
+		this.categoryId = categoryId;
+		this.productDescription = productDescription;
+		this.productImageUrl = productImageUrl;
+		this.productName = productName;
+		this.productPrice = productPrice;
+	}
+
+	public RegisteredProducts() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String toString() {
 		return "RegisteredProducts [categoryId=" + categoryId + ", productDescription=" + productDescription
@@ -10,10 +24,10 @@ public class RegisteredProducts {
 
 	String categoryId;
 	String productDescription;
-	Integer productId;
+	String productId;
 	String productImageUrl;
 	String productName;
-	String productPrice;
+	Float productPrice;
 
 //	public RegisteredProducts(String categoryId, String productDescription, Integer productId, String productImageUrl,
 //			String productName, String productPrice) {
@@ -41,11 +55,11 @@ public class RegisteredProducts {
 		this.productDescription = productDescription;
 	}
 
-	public Integer getProductId() {
+	public String getProductId() {
 		return productId;
 	}
 
-	public void setProductId(Integer productId) {
+	public void setProductId(String productId) {
 		this.productId = productId;
 	}
 
@@ -65,11 +79,11 @@ public class RegisteredProducts {
 		this.productName = productName;
 	}
 
-	public String getProductPrice() {
+	public Float getProductPrice() {
 		return productPrice;
 	}
 
-	public void setProductPrice(String productPrice) {
+	public void setProductPrice(Float productPrice) {
 		this.productPrice = productPrice;
 	}
 

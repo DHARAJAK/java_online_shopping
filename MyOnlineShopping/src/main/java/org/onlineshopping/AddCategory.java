@@ -44,7 +44,7 @@ public class AddCategory extends HttpServlet {
 			response.sendRedirect("ErrorPage.html");
 		} else {
 			connection = (Connection) connObj;
-			
+
 			CategoryDao category = new CategoryDaoImpl(connection);
 
 			try {

@@ -9,6 +9,6 @@ public interface ProductsDao {
 
 	public Iterator<RegisteredProducts> getAllProducts(Integer categoryId) throws ProductsException;
 	
-	
+	public Boolean addProduct(RegisteredProducts regProd);
 
 }

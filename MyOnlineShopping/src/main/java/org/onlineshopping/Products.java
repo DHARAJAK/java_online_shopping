@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -28,8 +30,15 @@ public class Products extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		Connection connection = null;
 		
-		Connection connection=null;
+		HttpSession session = request.getSession(false);
+		
+		if (session == null) {
+			response.sendRedirect("login.html");
+			return;
+		}
+
 
 		Object connObj = getServletContext().getAttribute("dbConnection");
 		if (connObj != null) {
@@ -46,10 +55,17 @@ public class Products extends HttpServlet {
 
 		prod = prodimpl.getAllProducts(categoryId);
 
+		
+
+	
 		PrintWriter out = response.getWriter();
+		
+		out.println("<a href='Products'> Go Back </a>");
+		
 		out.println("<html>");
 		out.println("<body>");
 		out.println("<link rel='stylesheet' type='text/css' href='Colors.css'>");
+		out.println("<h3> Welcome " + session.getAttribute("username"));
 		out.println("<table border='1'");
 		out.println("<tr>");
 		out.println("<th>Name </th>");
@@ -69,7 +85,7 @@ public class Products extends HttpServlet {
 
 		}
 		out.println("</table>");
-		out.println("<form action='AddProduct.html'  method='get'>");
+		out.println("<form action='AddProduct'  method='get'>");
 		out.println("<button type='submit'> Add Product </button>");
 		out.println("</form></body></html>");
 

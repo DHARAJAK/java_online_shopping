@@ -39,7 +39,7 @@ public class ProductsDaoImpl implements ProductsDao {
 				regProd.setProductDescription(result.getString("productDescription"));
 				regProd.setProductImageUrl(result.getString("productImageUrl"));
 				regProd.setProductName(result.getString("productName"));
-				regProd.setProductPrice(result.getString("productPrice"));
+				regProd.setProductPrice(result.getFloat("productPrice"));
 				System.out.println(regProd);
 
 				list.add(regProd);
@@ -69,7 +69,7 @@ public class ProductsDaoImpl implements ProductsDao {
 				regprod.setProductDescription(result.getString(1));
 				regprod.setProductImageUrl(result.getString(2));
 				regprod.setProductName(result.getString(3));
-				regprod.setProductPrice(result.getString(4));
+				regprod.setProductPrice(result.getFloat(4));
 				list.add(regprod);
 			}
 
@@ -80,4 +80,56 @@ public class ProductsDaoImpl implements ProductsDao {
 
 		return list.iterator();
 	}
+
+	public Boolean addProduct(RegisteredProducts regProd) {
+		Integer catId = 0;
+		try {
+			PreparedStatement psAddProduct = connection.prepareStatement(
+					"insert into products(categoryId, productDescription, productImageUrl, productName, productPrice) values (?,?,?,?,?)");
+			catId = getCategoryId(regProd.getCategoryId());
+			if (catId == 0) {
+				System.out.println("Catid can't be zero -> productsDaoImpl"); // console test for catid
+			}
+			psAddProduct.setInt(1, catId);
+			psAddProduct.setString(2, regProd.getProductDescription());
+			psAddProduct.setString(3, regProd.getProductImageUrl());
+			psAddProduct.setString(4, regProd.getProductName());
+			psAddProduct.setFloat(5, regProd.getProductPrice());
+
+			psAddProduct.execute();
+
+			if (psAddProduct.getUpdateCount() == 1) {
+				System.out.println("Product added");
+				return true;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+
+	}
+
+	public Integer getCategoryId(String categoryName) {
+		Integer var = 0;
+		try {
+			PreparedStatement psCatId = connection
+					.prepareStatement("select categoryId from category where categoryName = ?");
+			psCatId.setString(1, categoryName);
+
+			ResultSet result = psCatId.executeQuery();
+
+			if (result.next()) {
+				var = result.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return var;
+	}
+
 }

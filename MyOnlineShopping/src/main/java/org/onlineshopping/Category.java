@@ -1,11 +1,12 @@
 package org.onlineshopping;
 
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -24,6 +25,7 @@ public class Category extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		Connection connection = null;
 		Object connObj = getServletContext().getAttribute("dbConnection");
 
@@ -31,16 +33,25 @@ public class Category extends HttpServlet {
 			connection = (Connection) connObj;
 		} else {
 			response.sendRedirect("ErrorPage.html");
+			return;
+		}
+
+		HttpSession session = request.getSession(false);
+
+		if (session == null) {
+			response.sendRedirect("login.html");
+			return;
 		}
 
 		CategoryDaoImpl catD = new CategoryDaoImpl(connection);
 		try {
-			Iterator<RegisteredCategory> regCat = catD.getAllCategories();
+			Iterator<RegisteredCategory> regCat = catD.getAllCategoriesData();
 
 			PrintWriter out = response.getWriter();
 			out.println("<html>");
 			out.println("<body>");
 			out.println("<link rel='stylesheet' type='text/css' href='Colors.css'>");
+			out.println("<h3> Welcome " + session.getAttribute("username"));
 			out.println("<table border='1'");
 			out.println("<tr>");
 			out.println("<th>Name </th>");

@@ -6,6 +6,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 //import java.io.PrintWriter;
 import java.sql.Connection;
@@ -76,7 +78,11 @@ public class AuthenticateUser extends HttpServlet {
 
 				if (user.VerifyPassword(username, password)) {
 					System.out.println("User Verified");
+
+					HttpSession session = request.getSession();
+					session.setAttribute("username", username);
 					response.sendRedirect("Category");
+					return;
 
 				} else {
 					System.out.println("User password incorrect");
