@@ -75,7 +75,7 @@ public class Category extends HttpServlet {
 						+ category.getCategoryName() + "</a></td>");
 				out.println("<td>" + category.getCategoryDesc() + "</td>");
 				out.println(
-						"<td><img src='Image/" + category.getCategoryImgUrl() + "' height='80px' width='80px' /></td>");
+						"<td><img src='Image/" + category.getCategoryImgUrl() + "' height='80px' width='80px' ></td>");
 				out.println("<td>" + category.getCategoryName() + "</td> </tr>");
 			}
 

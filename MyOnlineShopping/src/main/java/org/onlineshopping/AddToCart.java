@@ -32,7 +32,6 @@ public class AddToCart extends HttpServlet {
 		}
 
 		Connection connection = (Connection) getServletContext().getAttribute("dbConnection");
-		System.out.println("DEBUG: Connection status is -> " + (connection != null));
 
 		if (connection == null) {
 			response.sendRedirect("ErrorPage.html");
@@ -44,7 +43,6 @@ public class AddToCart extends HttpServlet {
 
 		ProductsDaoImpl prodDetails = new ProductsDaoImpl(connection);
 		RegisteredProduct prod = prodDetails.getProductByProductId(productId);
-		System.out.println("DEBUG: Product object fetched is -> " + prod);
 
 		if (prod == null) {
 			response.sendRedirect("ErrorPage.html");
@@ -60,7 +58,7 @@ public class AddToCart extends HttpServlet {
 
 		try {
 			objCart.addToCart(prod);
-			response.sendRedirect("Products?categoryId=" + prod.getCategoryId()+"&added=true");
+			response.sendRedirect("Products?categoryId=" + prod.getCategoryId() + "&added=true");
 			return;
 		} catch (CartException e) {
 			e.printStackTrace();

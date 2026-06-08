@@ -59,6 +59,7 @@ public class Payment extends HttpServlet {
 					if (paymentSuccess) {
 						session.removeAttribute("cart");
 						response.sendRedirect("success.html");
+						return;
 					} else {
 						response.sendRedirect("PaymentFailed.html?reason=insufficient_funds");
 					}

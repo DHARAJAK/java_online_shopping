@@ -81,7 +81,7 @@ public class AuthenticateUser extends HttpServlet {
 
 					HttpSession session = request.getSession();
 					session.setAttribute("username", username);
-					response.sendRedirect("Category");
+					response.sendRedirect("Category.jsp");
 					return;
 
 				} else {
