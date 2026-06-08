@@ -87,11 +87,13 @@ public class AuthenticateUser extends HttpServlet {
 				} else {
 					System.out.println("User password incorrect");
 					response.sendRedirect("ResetPassword");
+					return;
 				}
 
 			} else {
 				System.out.println("User does not exist");
-				response.sendRedirect("register.html");
+				response.sendRedirect("ErrorPage.jsp");
+				return;
 			}
 		} catch (UsersException e) {
 			// TODO Auto-generated catch block
