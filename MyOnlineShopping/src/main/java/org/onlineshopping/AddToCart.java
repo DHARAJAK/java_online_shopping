@@ -58,7 +58,8 @@ public class AddToCart extends HttpServlet {
 
 		try {
 			objCart.addToCart(prod);
-			response.sendRedirect("Products?categoryId=" + prod.getCategoryId() + "&added=true");
+			System.out.println("Product added to cart");
+			response.sendRedirect("Products.jsp?categoryId=" + prod.getCategoryId() + "&added=true");
 			return;
 		} catch (CartException e) {
 			e.printStackTrace();

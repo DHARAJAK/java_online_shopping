@@ -25,7 +25,7 @@
 	<div style="display: flex; justify-content: space-between;">
 		<div></div>
 		<div>
-			<a href='ListCart'>View Cart</a>
+			<a href='ListCart.jsp'>View Cart</a>
 		</div>
 		<div></div>
 	</div>
@@ -48,14 +48,14 @@
 			<td>
 				<%
 				RegisteredCategory category = regCat.next();
-				%> <a href="Products?categoryId=<%=category.getCategoryId()%>">
+				%> <a href="Products.jsp?categoryId=<%=category.getCategoryId()%>">
 					<%=category.getCategoryName()%>
 			</a>
 			</td>
 			<td><%=category.getCategoryDesc()%></td>
 
 			<td><img src="Image/<%=category.getCategoryImgUrl()%>"
-				height='80px' width='80px'></td>
+				height='100px' width='150px'></td>
 
 			<td><%=category.getCategoryName()%></td>
 
